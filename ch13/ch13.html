@@ -8,7 +8,44 @@
   <script src="https://npmcdn.com/react-router@2.5.2/umd/ReactRouter.min.js"></script>
 
   <style>
-
+    body {
+      background-color: #FFCC00;
+      padding: 20px;
+      margin: 0;
+    }
+    h1, h2, p, ul, li {
+      font-family: Helvetica, Arial, sans-serif;
+    }
+    ul.header li {
+      display: inline;
+      list-style-type: none;
+      margin: 0;
+    }
+    ul.header {
+      background-color: #111;
+      padding: 0;
+    }
+    ul.header li a {
+      color: #FFF;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 20px;
+      display: inline-block;
+    }
+    .content {
+      background-color: #FFF;
+      padding: 20px;
+    }
+    .content h2 {
+      padding: 0;
+      margin: 0;
+    }
+    .content li {
+      margin-bottom: 10px;
+    }
+    .active {
+      background-color: #0099FF;
+    }
   </style>
 </head>
 
@@ -17,30 +54,88 @@
   <script type="text/babel">
     var destination = document.querySelector("#container");
 
+    var Home = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <h2> Home </h2>
+              <p>Cras facilisis urna ornare ex volutpat, et
+              convallis erat elementum. Ut aliquam, ipsum vitae
+              gravida suscipit, metus dui bibendum est, eget rhoncus nibh
+              metus nec massa. Maecenas hendrerit laoreet augue
+              nec molexsei. Cum sociis natoque penatibus et magnis
+              dis parturient montes, nascetur ridiculus mus.</p>
+
+            <p>Duis a turpis sed lacus dapibus elementum sed eu lectus.</p>
+          </div>
+        );
+      }
+    });
+
+    var Contact = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <h2>Got Questions?</h2>
+            <p>Ut aliquam, ipsum vitae
+            gravida suscipit, metus dui bibendum est, eget rhoncus nibh
+            metus nec massa</p>
+          </div>
+        );
+      }
+    });
+
+    var Stuff = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <h2>Stuff</h2>
+            <p>Mauris sem velit, vehicula eget sodales vitae,
+              rhoncus eget sapien:</p>
+            <ol>
+              <li>Nulla pulvinar diam</li>
+              <li>Facilisis bibendum</li>
+              <li>Vestibulum vulputate</li>
+              <li>Eget erat</li>
+              <li>Id porttitor</li>
+            </ol>
+          </div>
+        );
+      }
+    });
+
     var App = React.createClass({
       render: function() {
         return (
           <div>
             <h1>Simple SPA</h1>
             <ul className="header">
-              <li>Home</li>
-              <li>Stuff</li>
-              <li>Contact</li>
+              <li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
+              <li><Link to="/stuff" activeClassName="active">Stuff</Link></li>
+              <li><Link to="/contact" activeClassName="active">Contact</Link></li>
             </ul>
             <div className="content">
-
+              {this.props.children}
             </div>
           </div>
         )
       }
     })
 
-    ReactDOM.render(
-      <ReactRouter.Router>
-        <ReactRouter.Route path="/" component={App}>
+    var { Router,
+          Route,
+          IndexRoute,
+          IndexLink,
+          Link } = ReactRouter;
 
-        </ReactRouter.Route>
-      </ReactRouter.Router>,
+    ReactDOM.render(
+      <Router>
+        <Route path="/" component={App}>
+          <IndexRoute component={Home}/>
+          <Route path="stuff" component={Stuff}/>
+          <Route path="contact" component={Contact}/>
+        </Route>
+      </Router>,
       destination
     );
   </script>
