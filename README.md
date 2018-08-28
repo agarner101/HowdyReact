@@ -1,4 +1,4 @@
 # HowdyReact
 Fun with React
 
-<img src="result.png" width="80%"/>
+<img src="my-react-app/result.png" width="80%"/>
